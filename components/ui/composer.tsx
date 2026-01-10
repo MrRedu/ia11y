@@ -227,9 +227,9 @@ export const Composer: FC<ComposerProps> = ({
       <div
         ref={composerRef}
         className={cn(
-          'relative rounded-3xl px-1 pt-1 pb-2',
+          'relative rounded-3xl px-1 pt-1 pb-2 border',
           // Light mode: light gray background, Dark mode: zinc-800
-          'bg-zinc-100 dark:bg-zinc-800'
+          'bg-card dark:bg-secondary'
         )}
       >
         {/* Slash Command Dropdown - positioned above composer */}
@@ -381,7 +381,7 @@ export const Composer: FC<ComposerProps> = ({
             type="button"
             onClick={() => handleSubmit()}
             disabled={disabled || isLoading || !canSubmit}
-            className={cn('rounded-full disabled:cursor-not-allowed')}
+            className={cn('rounded-full disabled:cursor-not-allowed text-primary')}
             aria-label="Send message"
           >
             <SendHorizontal className="size-6" />
