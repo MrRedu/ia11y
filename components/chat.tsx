@@ -3,70 +3,13 @@
 import { Cpu, User } from 'lucide-react';
 import { Typography } from '@/components/ui/typography';
 import Composer from '@/components/ui/composer';
-import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { AnalysisResponse } from './analysis-response';
-type Role = 'user' | 'assistant' | 'system';
-
-interface ApiResponse {
-  errors: Array<{ code_wcag: string; description: string }>;
-  suggestions: Array<{ description: string; priority: string }>;
-  fixed_code: string;
-  code_extension: 'html' | 'jsx' | 'tsx';
-}
-
-interface Message {
-  role: Role;
-  content: string | ApiResponse;
-}
-
-const getAnswer = async (codeSnippet: string) => {
-  const response = await fetch('/api/chat', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ codeSnippet }),
-  });
-  const data = await response.json();
-  return data._output;
-};
+import { useChat } from '@/hooks/use-chat';
+import { AnswerSkeleton } from './answer-skeleton';
 
 export const Chat = () => {
-  const [text, setText] = useState<string>('');
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const handleTextChange = (value: string) => setText(value);
-  const handleSubmit = async () => {
-    if (!text) return;
-
-    try {
-      setIsLoading(true);
-      const userMessage: Message = { role: 'user', content: text };
-      setMessages((prev) => [...prev, userMessage]);
-      setText('');
-
-      const response = await getAnswer(text);
-
-      const cleanJsonString = response.replace(/^```json\n?|```$/g, '').trim();
-      const parsedObject = JSON.parse(cleanJsonString) as ApiResponse;
-
-      const assistantMessage: Message = {
-        role: 'assistant',
-        content: parsedObject,
-      };
-
-      setMessages((prev) => [...prev, assistantMessage]);
-    } catch (error) {
-      console.error('Error fetching answer:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    console.log('messages 📨', messages);
-  }, [messages]);
+  const { text, handleTextChange, messages, setMessages, isLoading, handleSubmit } = useChat();
 
   return (
     <div className="mx-auto max-w-3xl px-4">
@@ -109,13 +52,12 @@ export const Chat = () => {
             })}
             {/* Loading state */}
             {isLoading && (
-              <li className={cn(`rounded-2xl rounded-tr p-3 max-w-full text-start self-start`)}>
-                {`Analyzing...`}
-              </li>
+              <AnswerSkeleton as="li" className="p-3 max-w-full text-start self-start" />
             )}
           </ul>
         )}
 
+        {/* Chat input */}
         <div className={cn('w-full mt-8', messages.length > 0 && 'sticky bottom-4 left-0')}>
           <Composer
             placeholder="Share your code snippet"
