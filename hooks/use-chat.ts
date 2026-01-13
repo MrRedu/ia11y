@@ -39,7 +39,6 @@ export function useChat() {
     handleTextChange,
 
     messages,
-    setMessages,
 
     isLoading,
     handleSubmit,

@@ -10,7 +10,7 @@ export function useClipboard() {
 
       setTimeout(() => setIsCopies(false), 2000);
     } catch (err) {
-      console.error('Error al copiar al portapapeles', err);
+      console.error('Error copying to clipboard:', err);
     }
   };
 
