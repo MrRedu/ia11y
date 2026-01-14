@@ -27,14 +27,14 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Acciones</SidebarGroupLabel>
+          <SidebarGroupLabel>Actions</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
                   <Link href="#">
                     <MessageCirclePlus />
-                    <span>Nuevo chat</span>
+                    <span>New chat</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>

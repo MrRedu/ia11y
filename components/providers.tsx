@@ -21,7 +21,7 @@ export const Providers = ({ children }: ProviderProps) => {
           <AppSidebar />
           <SidebarInset>
             <Header />
-            <main className="container min-h-[calc(100svh-52px)] mx-auto py-10 space-y-8 w-full">
+            <main className="container min-h-[calc(100svh-52px)] mx-auto space-y-8 w-full">
               <>{children}</>
             </main>
           </SidebarInset>

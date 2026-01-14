@@ -35,7 +35,7 @@ export const FooterSidebar = ({ setTheme }: FooterSidebarProps) => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <SidebarMenuButton>
-                <Settings /> Configuración
+                <Settings /> Configuration
               </SidebarMenuButton>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56" align="start">
@@ -64,15 +64,13 @@ export const FooterSidebar = ({ setTheme }: FooterSidebarProps) => {
                 <DropdownMenuSub>
                   <DropdownMenuSubTrigger>
                     <SunMoon />
-                    Tema
+                    Theme
                   </DropdownMenuSubTrigger>
                   <DropdownMenuPortal>
                     <DropdownMenuSubContent>
-                      <DropdownMenuItem onClick={() => setTheme('light')}>Claro</DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setTheme('dark')}>Oscuro</DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setTheme('system')}>
-                        Sistema
-                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => setTheme('light')}>Light</DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => setTheme('dark')}>Dark</DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => setTheme('system')}>System</DropdownMenuItem>
                     </DropdownMenuSubContent>
                   </DropdownMenuPortal>
                 </DropdownMenuSub>

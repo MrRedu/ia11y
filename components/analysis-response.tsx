@@ -1,34 +1,20 @@
 'use client';
+
 import ShikiHighlighter from 'react-shiki';
 import { CheckCircle2, AlertCircle, Lightbulb, Copy, Check } from 'lucide-react';
-import { useState } from 'react';
+import { useClipboard } from '@/hooks/use-clipboard';
+import type { ApiResponse } from '@/types/types';
 
 interface AnalysisProps {
-  data: {
-    errors: Array<{ code_wcag: string; description: string }>;
-    suggestions: Array<{ description: string; priority: string }>;
-    fixed_code: string;
-    code_extension: 'html' | 'jsx' | 'tsx';
-  };
+  data: ApiResponse;
 }
 
 export const AnalysisResponse = ({ data }: AnalysisProps) => {
-  const [isCopied, setIsCopies] = useState(false);
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(data.fixed_code);
-      setIsCopies(true);
-
-      setTimeout(() => setIsCopies(false), 2000);
-    } catch (err) {
-      console.error('Error al copiar al portapapeles', err);
-    }
-  };
+  const { isCopied, handleCopy } = useClipboard();
 
   return (
     <li className="flex flex-col gap-6 w-full text-start">
-      {/* SECCIÓN DE ERRORES */}
+      {/* Errors section */}
       {data.errors.length > 0 && (
         <section>
           <h3 className="flex items-center gap-2 font-bold text-red-500 mb-3">
@@ -47,7 +33,7 @@ export const AnalysisResponse = ({ data }: AnalysisProps) => {
         </section>
       )}
 
-      {/* SECCIÓN DE SUGERENCIAS */}
+      {/* Suggestions section */}
       {data.suggestions.length > 0 && (
         <section>
           <h3 className="flex items-center gap-2 font-bold text-amber-500 mb-3">
@@ -74,7 +60,7 @@ export const AnalysisResponse = ({ data }: AnalysisProps) => {
         </section>
       )}
 
-      {/* SECCIÓN DE CÓDIGO CORREGIDO */}
+      {/* Fixed code section */}
       {data.fixed_code.length > 0 && (
         <section className="mt-4">
           <div className="flex items-center justify-between mb-3">
@@ -82,7 +68,7 @@ export const AnalysisResponse = ({ data }: AnalysisProps) => {
               <CheckCircle2 className="size-5" aria-hidden="true" /> Código Sugerido
             </h3>
             <button
-              onClick={handleCopy}
+              onClick={() => handleCopy(data.fixed_code)}
               disabled={isCopied}
               className={`flex items-center gap-2 text-xs font-medium px-3 py-1.5 rounded-md transition-all duration-200 ${
                 isCopied

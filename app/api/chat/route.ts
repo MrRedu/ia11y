@@ -7,7 +7,7 @@ const google = createGoogleGenerativeAI({
 });
 
 const MODEL = google('gemini-2.5-flash');
-const ACCESSIBILITY_SYSTEM_PROMPT = `Eres un experto en accesibilidad web (WCAG 2.1). Analiza el siguiente código HTML o React.js. Identifica fallos de accesibilidad y devuelve un JSON con la siguiente estructura:
+const ACCESSIBILITY_SYSTEM_PROMPT = `Eres un experto en accesibilidad web (WCAG 2.2). Analiza el siguiente código HTML o React.js. Identifica fallos de accesibilidad y devuelve un JSON con la siguiente estructura:
 
 {
   "errors": [
