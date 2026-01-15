@@ -3,6 +3,8 @@ import { getAnswer } from '@/services/get-answer';
 import type { Message } from '@/types/types';
 
 const getErrorMessage = (err: unknown): string => {
+  // 👀
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const isApiError = (e: any): e is { status: number; message: string } =>
     e && typeof e.status === 'number';
 

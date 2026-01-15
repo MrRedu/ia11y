@@ -4,7 +4,7 @@ import type { FC, ReactNode } from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 // import { ArrowUp02Icon, HugeiconsIcon, PlusSignIcon, ToolsIcon } from '@/components/icons';
 import { cn } from '@/lib/utils';
-import { SendHorizontal, ToolCase, User } from 'lucide-react';
+import { SendHorizontal, ToolCase } from 'lucide-react';
 import { Button } from './button';
 // import { FilePreview, type UploadedFile } from '@/registry/new-york/ui/file-preview';
 // import {
