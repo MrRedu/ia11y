@@ -20,7 +20,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Settings, SunMoon } from 'lucide-react';
+import { Languages, Settings, SunMoon } from 'lucide-react';
 import { type UseThemeProps } from 'next-themes';
 
 interface FooterSidebarProps {
@@ -60,6 +60,18 @@ export const FooterSidebar = ({ setTheme }: FooterSidebarProps) => {
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator /> */}
               <DropdownMenuGroup>
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger>
+                    <Languages />
+                    Language
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuPortal>
+                    <DropdownMenuSubContent>
+                      <DropdownMenuItem onClick={() => alert('es')}>Español</DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => alert('en')}>English</DropdownMenuItem>
+                    </DropdownMenuSubContent>
+                  </DropdownMenuPortal>
+                </DropdownMenuSub>
                 {/* <DropdownMenuItem>Team</DropdownMenuItem> */}
                 <DropdownMenuSub>
                   <DropdownMenuSubTrigger>

@@ -7,70 +7,86 @@ import { cn } from '@/lib/utils';
 import { AnalysisResponse } from './analysis-response';
 import { useChat } from '@/hooks/use-chat';
 import { AnswerSkeleton } from './answer-skeleton';
+import type { ApiResponse } from '@/types/types';
 
 export const Chat = () => {
   const { text, handleTextChange, messages, isLoading, handleSubmit } = useChat();
 
   return (
-    <div className="relative mx-auto max-w-3xl px-4 pt-10">
-      <div className="w-full flex flex-col items-center justify-center text-center">
-        {/* Starting conversation */}
+    <div className="relative mx-auto max-w-2xl h-full px-4 pt-10">
+      <div className="w-full flex flex-col h-full items-center justify-center text-center">
+        {/* Starting conversation / Empty state */}
         {messages.length === 0 && (
-          <div className="mb-4 pt-32">
+          <div className="mb-4 text-left">
             <Typography variant="h2" className="flex items-center gap-2 pb-0!">
               <User className="size-8" aria-hidden="true" /> Welcome to ia11y!
             </Typography>
-            <Typography variant="h3" className="text-muted-foreground">
+            <Typography variant="h3" className="text-muted-foreground text-xl">
               {`Building a web for everyone, one commit at a time.`}
             </Typography>
           </div>
         )}
-
-        {/* Conversation */}
+        {/* Conversation list */}
         {messages.length > 0 && (
-          <ul className="flex-1 w-full flex flex-col gap-3" role="log" aria-live="polite">
+          <ul className="flex-1 w-full flex flex-col gap-3  md:px-0" role="log" aria-live="polite">
             {messages.map((m, idx) => {
-              if (m.role === 'assistant') {
-                // AI if response is a object
-                if (typeof m.content === 'object' && m.content !== null) {
-                  return <AnalysisResponse key={idx} data={m.content} />;
-                }
+              // Caso 1: Respuesta de Análisis (Objeto)
+              if (m.role === 'assistant' && typeof m.content === 'object') {
+                return <AnalysisResponse key={idx} data={m.content as ApiResponse} />;
+              }
 
-                // AI if not is a object
+              // Caso 2: Mensajes de Sistema / Errores
+              if (m.role === 'system') {
                 return (
-                  <li key={idx} className={cn(`max-w-full text-start self-start`)}>
-                    <Cpu className="absolute -top-1 -left-10" aria-hidden="true" />
-                    <pre className="whitespace-pre-wrap text-sm">
-                      {JSON.stringify(m.content, undefined, 2)}
-                    </pre>
+                  <li
+                    key={idx}
+                    className="relative p-3 rounded-2xl bg-destructive/15 border border-destructive/20 self-start w-fit text-start"
+                  >
+                    <Cpu
+                      className="absolute -top-1 -left-10 size-5 text-destructive"
+                      aria-hidden="true"
+                    />
+                    <Typography className="text-destructive font-medium mt-0!">
+                      {m.content as string}
+                    </Typography>
                   </li>
                 );
               }
 
-              // User
+              // Caso 3: Mensajes de Usuario
               return (
                 <li
                   key={idx}
                   className={cn(
-                    `rounded-2xl rounded-tr p-3 max-w-full bg-primary dark:bg-secondary text-end self-end`
+                    'p-3 rounded-2xl max-w-[85%] text-sm',
+                    m.role === 'user'
+                      ? 'bg-primary text-primary-foreground self-end rounded-tr-none'
+                      : 'bg-muted self-start rounded-tl-none'
                   )}
                 >
-                  <pre className="whitespace-pre-wrap text-sm">{m.content as string}</pre>
+                  <Typography>
+                    {typeof m.content === 'string' ? m.content : JSON.stringify(m.content)}
+                  </Typography>
                 </li>
               );
             })}
-            {/* Loading */}
+
+            {/* isLoading */}
             {isLoading && (
-              <AnswerSkeleton as="li" className="p-3 max-w-full text-start self-start" />
+              <AnswerSkeleton
+                as="li"
+                aria-atomic="true"
+                role="status"
+                className="p-3 max-w-full text-start self-start"
+              />
             )}
           </ul>
         )}
-
-        {/* Chat input */}
+        {/* Floating Input Area */}
         <div
           className={cn(
-            'w-full bg-background mt-4',
-            messages.length > 0 && 'sticky bottom-0 md:w-[calc(100%+4rem)]'
+            'w-full mt-4 bg-background',
+            messages.length > 0 && 'sticky space-y-2 pb-2 bottom-0 '
           )}
         >
           <Composer
@@ -79,9 +95,10 @@ export const Chat = () => {
             onChange={handleTextChange}
             onSubmit={handleSubmit}
             showToolsButton={false}
-            className={cn('', messages.length > 0 && '')}
+            isLoading={isLoading}
+            className={cn('', messages.length > 0 && 'md:w-[calc(100%+4rem)] md:ml-[-2rem]')}
           />
-          <Typography variant="small" className="mt-2 text-muted-foreground">
+          <Typography variant="small" className="text-muted-foreground">
             {messages.length < 1
               ? 'Enter your code snippet and press Enter to analyze.'
               : 'ai11y can make mistakes. Check its responses.'}
