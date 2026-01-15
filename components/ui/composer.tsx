@@ -227,7 +227,7 @@ export const Composer: FC<ComposerProps> = ({
       <div
         ref={composerRef}
         className={cn(
-          'relative rounded-3xl px-1 pt-1 pb-2 border',
+          'relative rounded-3xl px-1 pt-1 pb-2 border shadow',
           // Light mode: light gray background, Dark mode: zinc-800
           'bg-card dark:bg-secondary'
         )}

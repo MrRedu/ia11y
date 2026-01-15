@@ -28,7 +28,7 @@ export const AnswerSkeleton = <E extends ElementType = 'div'>({
   }, []);
 
   return (
-    <Component {...props} aria-atomic="true" role="status">
+    <Component {...props}>
       <Typography className="animate-pulse" variant="muted">
         {MESSAGES_ANSWER_LOADING[index]}
       </Typography>
