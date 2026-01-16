@@ -15,10 +15,10 @@ import {
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
 import { FooterSidebar } from './footer-sidebar';
-import { useTheme } from 'next-themes';
+import { useIntlayer } from 'next-intlayer';
 
 export function AppSidebar() {
-  const { setTheme } = useTheme();
+  const content = useIntlayer('app-sidebar');
 
   return (
     <Sidebar collapsible="icon">
@@ -27,7 +27,7 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Actions</SidebarGroupLabel>
+          <SidebarGroupLabel>{content.title}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
@@ -42,7 +42,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <FooterSidebar setTheme={setTheme} />
+      <FooterSidebar />
     </Sidebar>
   );
 }

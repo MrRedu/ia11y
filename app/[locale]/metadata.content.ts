@@ -2,16 +2,35 @@ import { type Dictionary, t } from 'intlayer';
 import { Metadata } from 'next';
 
 const metadataContent = {
-  key: 'home-page-metadata',
+  key: 'metadata',
   content: {
     title: t({
-      en: 'ia11y',
-      es: 'ia11y',
+      en: 'ia11y | AI-Powered Web Accessibility Auditor',
+      es: 'ia11y | Auditor de Accesibilidad Web con IA',
     }),
     description: t({
-      en: 'Building a web for everyone, one commit at a time.',
-      es: 'Building a web for everyone, one commit at a time.',
+      en: 'Audit, fix, and optimize your website accessibility (WCAG) with AI. Building a web for everyone, one commit at a time.',
+      es: 'Audita, corrige y optimiza la accesibilidad de tu web (WCAG) con IA. Construyendo una web para todos, un commit a la vez.',
     }),
+    keywords: t({
+      en: ['Accessibility', 'A11y', 'AI code auditor', 'WCAG compliance', 'Web development tools'],
+      es: [
+        'Accesibilidad',
+        'A11y',
+        'Auditor de código IA',
+        'Cumplimiento WCAG',
+        'Herramientas de desarrollo web',
+      ],
+    }),
+    openGraph: {
+      title: 'ia11y',
+      siteName: 'ia11y',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      site: '@tu_usuario', // Reemplaza con tu Twitter
+    },
   },
 } satisfies Dictionary<Metadata>;
 
