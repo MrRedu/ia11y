@@ -1,28 +1,37 @@
 'use client';
 
-import { Cpu, User } from 'lucide-react';
-import { Typography } from '@/components/ui/typography';
-import Composer from '@/components/ui/composer';
 import { cn } from '@/lib/utils';
-import { AnalysisResponse } from './analysis-response';
+
+import { Cpu, User } from 'lucide-react';
+
+import { Typography } from '@/components/ui/typography';
+import { Composer } from '@/components/ui/composer';
+
+import { AnalysisResponse } from '@/components/organisms/analysis-response/analysis-response';
+import { AnswerSkeleton } from '@/components/atoms/answer-skeleton/answer-skeleton';
+
 import { useChat } from '@/hooks/use-chat';
-import { AnswerSkeleton } from './answer-skeleton';
+import { useIntlayer } from 'next-intlayer';
 import type { ApiResponse } from '@/types/types';
+import { Ia11yIcon } from '@/components/atoms/icons/ia11y.icon';
 
 export const Chat = () => {
   const { text, handleTextChange, messages, isLoading, handleSubmit } = useChat();
+  const content = useIntlayer('chat');
 
   return (
-    <div className="relative mx-auto max-w-2xl h-full px-4 pt-10">
+    <div className="relative mx-auto max-w-2xl xl:max-w-3xl 2xl:max-w-4xl 3xl:max-w-5xl h-full px-4 pt-10">
       <div className="w-full flex flex-col h-full items-center justify-center text-center">
         {/* Starting conversation / Empty state */}
         {messages.length === 0 && (
           <div className="mb-4 text-left">
             <Typography variant="h2" className="flex items-center gap-2 pb-0!">
-              <User className="size-8" aria-hidden="true" /> Welcome to ia11y!
+              <Ia11yIcon className="size-8 text-primary" aria-hidden="true" />
+
+              {content.welcome}
             </Typography>
             <Typography variant="h3" className="text-muted-foreground text-xl">
-              {`Building a web for everyone, one commit at a time.`}
+              {content.description}
             </Typography>
           </div>
         )}
@@ -76,7 +85,6 @@ export const Chat = () => {
               <AnswerSkeleton
                 as="li"
                 aria-atomic="true"
-                role="status"
                 className="p-3 max-w-full text-start self-start"
               />
             )}
@@ -90,7 +98,7 @@ export const Chat = () => {
           )}
         >
           <Composer
-            placeholder="Share your code snippet"
+            placeholder={content.floatingChat.placeholder.value}
             value={text}
             onChange={handleTextChange}
             onSubmit={handleSubmit}
@@ -99,9 +107,11 @@ export const Chat = () => {
             className={cn('', messages.length > 0 && 'md:w-[calc(100%+4rem)] md:ml-[-2rem]')}
           />
           <Typography variant="small" className="text-muted-foreground">
-            {messages.length < 1
-              ? 'Enter your code snippet and press Enter to analyze.'
-              : 'ai11y can make mistakes. Check its responses.'}
+            {messages.length < 1 ? (
+              <>{content.floatingChat.usageInstruction}</>
+            ) : (
+              <>{content.floatingChat.aiDisclaimer}</>
+            )}
           </Typography>
         </div>
       </div>
