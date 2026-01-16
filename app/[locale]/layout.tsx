@@ -38,6 +38,26 @@ export const generateMetadata = async ({ params }: LocalPromiseParams): Promise<
     },
     openGraph: {
       url: localizedUrl,
+      images: [
+        {
+          url: '/og-image.webp',
+          width: 1920,
+          height: 1440,
+          alt: 'ia11y',
+        },
+        // {
+        //   url: '/og-image-1200x630.webp', // La principal (1.91:1)
+        //   width: 1200,
+        //   height: 630,
+        //   alt: 'ia11y',
+        // },
+        // {
+        //   url: '/og-image-600x600.webp', // Versión cuadrada para chats/pequeño
+        //   width: 600,
+        //   height: 600,
+        //   alt: 'ia11y',
+        // },
+      ],
     },
   };
 };

@@ -27,10 +27,6 @@ const metadataContent = {
       siteName: 'ia11y',
       type: 'website',
     },
-    twitter: {
-      card: 'summary_large_image',
-      site: '@tu_usuario', // Reemplaza con tu Twitter
-    },
   },
 } satisfies Dictionary<Metadata>;
 

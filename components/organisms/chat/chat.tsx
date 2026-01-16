@@ -20,7 +20,12 @@ export const Chat = () => {
   const content = useIntlayer('chat');
 
   return (
-    <div className="relative mx-auto max-w-2xl xl:max-w-3xl 2xl:max-w-4xl 3xl:max-w-5xl h-full px-4 pt-10">
+    <div
+      className={cn(
+        'relative mx-auto max-w-2xl xl:max-w-3xl 2xl:max-w-4xl 3xl:max-w-5xl h-full px-4',
+        messages.length > 0 && 'pt-10'
+      )}
+    >
       <div className="w-full flex flex-col h-full items-center justify-center text-center">
         {/* Starting conversation / Empty state */}
         {messages.length === 0 && (
