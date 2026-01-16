@@ -7,7 +7,15 @@ export interface ApiResponse {
   code_extension: 'html' | 'jsx' | 'tsx';
 }
 
+export interface ApiErrorResponse {
+  message: string;
+}
+
 export interface Message {
   role: Role;
-  content: string | ApiResponse;
+  content: ApiResponse | string | null;
+}
+
+export interface ApiError extends Error {
+  status?: number;
 }

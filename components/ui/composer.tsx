@@ -4,7 +4,7 @@ import type { FC, ReactNode } from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 // import { ArrowUp02Icon, HugeiconsIcon, PlusSignIcon, ToolsIcon } from '@/components/icons';
 import { cn } from '@/lib/utils';
-import { SendHorizontal, ToolCase, User } from 'lucide-react';
+import { SendHorizontal, ToolCase } from 'lucide-react';
 import { Button } from './button';
 // import { FilePreview, type UploadedFile } from '@/registry/new-york/ui/file-preview';
 // import {
@@ -227,7 +227,7 @@ export const Composer: FC<ComposerProps> = ({
       <div
         ref={composerRef}
         className={cn(
-          'relative rounded-3xl px-1 pt-1 pb-2 border',
+          'relative rounded-3xl px-1 pt-1 pb-2 border shadow',
           // Light mode: light gray background, Dark mode: zinc-800
           'bg-card dark:bg-secondary'
         )}

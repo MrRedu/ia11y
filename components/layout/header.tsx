@@ -1,5 +1,5 @@
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+// import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import {
   Dialog,
   DialogContent,
@@ -11,19 +11,23 @@ import {
   // DialogClose,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { CircleAlert } from 'lucide-react';
+import { CircleQuestionMark } from 'lucide-react';
+import { Ia11yIcon } from '@/components/atoms/icons/ia11y.icon';
 
 export const Header = () => {
   return (
     <header className="flex items-center justify-between max-h-[52px] py-2 px-4 border-b">
       <div className="flex items-center justify-between w-full">
         <SidebarTrigger className="block md:hidden" />
-        <h1 className="hidden md:block font-mono font-bold">ia11y</h1>
+        <h1 className="hidden  font-mono font-bold md:flex items-center gap-2">
+          <Ia11yIcon className="size-6 text-primary" aria-hidden="true" />
+          ia11y
+        </h1>
         <div className="flex items-center gap-4">
           <Dialog>
             <DialogTrigger asChild>
               <Button variant="ghost" size="icon">
-                <CircleAlert />
+                <CircleQuestionMark />
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-md">
@@ -36,10 +40,10 @@ export const Header = () => {
               <div className="flex items-center gap-2">The code is available on GitHub.</div>
             </DialogContent>
           </Dialog>
-          <Avatar className="rounded-lg">
+          {/* <Avatar className="rounded-lg">
             <AvatarImage src="#" alt="@mrredu" />
             <AvatarFallback className="rounded-lg">MR</AvatarFallback>
-          </Avatar>
+          </Avatar> */}
         </div>
       </div>
     </header>

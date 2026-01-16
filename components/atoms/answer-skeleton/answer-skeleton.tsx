@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState, type ElementType, type ComponentPropsWithoutRef } from 'react';
 import { Typography } from '@/components/ui/typography';
-import { MESSAGES_ANSWER_LOADING } from '@/lib/constants';
+import { useIntlayer } from 'next-intlayer';
 
 type PolymorphicAs<E extends ElementType> = {
   as?: E;
@@ -17,20 +17,22 @@ export const AnswerSkeleton = <E extends ElementType = 'div'>({
 }: AnswerSkeletonProps<E>) => {
   const Component = (as || 'div') as ElementType;
 
+  const { loadingMessages } = useIntlayer('answer-skeleton');
+
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
     const id = window.setInterval(() => {
-      setIndex((i) => (i + 1) % MESSAGES_ANSWER_LOADING.length);
+      setIndex((i) => (i + 1) % loadingMessages.length);
     }, 3 * ONE_SECOND_IN_MS);
 
     return () => window.clearInterval(id);
-  }, []);
+  }, [loadingMessages.length]);
 
   return (
-    <Component {...props} aria-atomic="true" role="status">
+    <Component {...props}>
       <Typography className="animate-pulse" variant="muted">
-        {MESSAGES_ANSWER_LOADING[index]}
+        {loadingMessages[index]}
       </Typography>
     </Component>
   );

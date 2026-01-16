@@ -3,31 +3,22 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenu,
-  // SidebarGroup,
-  // SidebarGroupContent,
 } from '@/components/ui/sidebar';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
-  DropdownMenuItem,
-  // DropdownMenuLabel,
-  DropdownMenuPortal,
-  // DropdownMenuSeparator,
-  // DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Settings, SunMoon } from 'lucide-react';
-import { type UseThemeProps } from 'next-themes';
+import { Settings } from 'lucide-react';
+import { LocaleSwitcher } from '@/components/molecules/locale-switcher/locale-switcher';
+import { ThemeSwitcher } from '@/components/molecules/theme-switcher/theme-switcher';
+import { useIntlayer } from 'next-intlayer';
 
-interface FooterSidebarProps {
-  setTheme: UseThemeProps['setTheme'];
-}
+// interface FooterSidebarProps {}
 
-export const FooterSidebar = ({ setTheme }: FooterSidebarProps) => {
+export const FooterSidebar = () => {
+  const content = useIntlayer('footer-sidebar');
   return (
     <SidebarFooter>
       <SidebarMenu>
@@ -35,7 +26,7 @@ export const FooterSidebar = ({ setTheme }: FooterSidebarProps) => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <SidebarMenuButton>
-                <Settings /> Configuration
+                <Settings /> {content.title}
               </SidebarMenuButton>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56" align="start">
@@ -60,20 +51,9 @@ export const FooterSidebar = ({ setTheme }: FooterSidebarProps) => {
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator /> */}
               <DropdownMenuGroup>
+                <LocaleSwitcher />
                 {/* <DropdownMenuItem>Team</DropdownMenuItem> */}
-                <DropdownMenuSub>
-                  <DropdownMenuSubTrigger>
-                    <SunMoon />
-                    Theme
-                  </DropdownMenuSubTrigger>
-                  <DropdownMenuPortal>
-                    <DropdownMenuSubContent>
-                      <DropdownMenuItem onClick={() => setTheme('light')}>Light</DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setTheme('dark')}>Dark</DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setTheme('system')}>System</DropdownMenuItem>
-                    </DropdownMenuSubContent>
-                  </DropdownMenuPortal>
-                </DropdownMenuSub>
+                <ThemeSwitcher />
                 {/* <DropdownMenuItem>
                     New Team
                     <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>

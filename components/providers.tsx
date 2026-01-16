@@ -3,21 +3,25 @@ import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/layout/sidebar/app-sidebar';
 import { Header } from './layout/header';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import { IntlayerClientProvider } from 'next-intlayer';
+import { type LocalesValues } from 'intlayer';
 
 interface ProviderProps {
   children: React.ReactNode;
+  locale: LocalesValues;
+  isSidebarOpen: boolean;
 }
 
-export const Providers = ({ children }: ProviderProps) => {
+export const Providers = ({ children, locale, isSidebarOpen }: ProviderProps) => {
   return (
-    <>
+    <IntlayerClientProvider locale={locale}>
       <NextThemesProvider
         attribute="class"
         defaultTheme="system"
         enableSystem
         disableTransitionOnChange
       >
-        <SidebarProvider defaultOpen={false}>
+        <SidebarProvider defaultOpen={isSidebarOpen}>
           <AppSidebar />
           <SidebarInset>
             <Header />
@@ -27,6 +31,6 @@ export const Providers = ({ children }: ProviderProps) => {
           </SidebarInset>
         </SidebarProvider>
       </NextThemesProvider>
-    </>
+    </IntlayerClientProvider>
   );
 };
