@@ -1,16 +1,22 @@
 'use client';
 
-import { Cpu, User } from 'lucide-react';
-import { Typography } from '@/components/ui/typography';
-import Composer from '@/components/ui/composer';
 import { cn } from '@/lib/utils';
-import { AnalysisResponse } from './analysis-response';
+
+import { Cpu, User } from 'lucide-react';
+
+import { Typography } from '@/components/ui/typography';
+import { Composer } from '@/components/ui/composer';
+
+import { AnalysisResponse } from '@/components/organisms/analysis-response/analysis-response';
+import { AnswerSkeleton } from '@/components/atoms/answer-skeleton/answer-skeleton';
+
 import { useChat } from '@/hooks/use-chat';
-import { AnswerSkeleton } from './answer-skeleton';
 import type { ApiResponse } from '@/types/types';
+import { useIntlayer } from 'next-intlayer';
 
 export const Chat = () => {
   const { text, handleTextChange, messages, isLoading, handleSubmit } = useChat();
+  const content = useIntlayer('chat');
 
   return (
     <div className="relative mx-auto max-w-2xl h-full px-4 pt-10">
@@ -19,7 +25,7 @@ export const Chat = () => {
         {messages.length === 0 && (
           <div className="mb-4 text-left">
             <Typography variant="h2" className="flex items-center gap-2 pb-0!">
-              <User className="size-8" aria-hidden="true" /> Welcome to ia11y!
+              <User className="size-8" aria-hidden="true" /> {content.welcome}
             </Typography>
             <Typography variant="h3" className="text-muted-foreground text-xl">
               {`Building a web for everyone, one commit at a time.`}
