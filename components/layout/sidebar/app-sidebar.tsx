@@ -32,7 +32,7 @@ export function AppSidebar() {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <Link href="#">
+                  <Link href="#" className="cursor-not-allowed">
                     <MessageCirclePlus />
                     <span>New chat</span>
                   </Link>
