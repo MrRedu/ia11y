@@ -26,7 +26,6 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 export const generateMetadata = async ({ params }: LocalPromiseParams): Promise<Metadata> => {
   const { locale } = await params;
-
   const metadata = getIntlayer('metadata', locale);
 
   return {
@@ -35,7 +34,6 @@ export const generateMetadata = async ({ params }: LocalPromiseParams): Promise<
     creator: '@MrRedu | Eduardo R.',
     publisher: 'Eduardo R.',
     openGraph: {
-      ...metadata.openGraph,
       url: 'https://ia11y.vercel.app',
       images: [
         {
@@ -48,17 +46,6 @@ export const generateMetadata = async ({ params }: LocalPromiseParams): Promise<
           url: '/og-600x600.webp',
           width: 600,
           height: 600,
-          alt: 'ia11y | AI-Powered Web Accessibility Auditor',
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      images: [
-        {
-          url: '/og-1920x1080.webp',
-          width: 1920,
-          height: 1080,
           alt: 'ia11y | AI-Powered Web Accessibility Auditor',
         },
       ],
