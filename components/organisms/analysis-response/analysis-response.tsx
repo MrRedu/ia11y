@@ -1,15 +1,17 @@
 'use client';
 
+import type { ApiResponse } from '@/types/types';
 import ShikiHighlighter from 'react-shiki';
 import { CheckCircle2, AlertCircle, Lightbulb, Copy, Check } from 'lucide-react';
 import { useClipboard } from '@/hooks/use-clipboard';
-import type { ApiResponse } from '@/types/types';
+import { useIntlayer } from 'next-intlayer';
 
 interface AnalysisProps {
   data: ApiResponse;
 }
 
 export const AnalysisResponse = ({ data }: AnalysisProps) => {
+  const content = useIntlayer('analysis-response');
   const { isCopied, handleCopy } = useClipboard();
 
   return (
@@ -18,7 +20,7 @@ export const AnalysisResponse = ({ data }: AnalysisProps) => {
       {data.errors.length > 0 && (
         <section>
           <h3 className="flex items-center gap-2 font-bold text-red-500 mb-3">
-            <AlertCircle className="size-5" aria-hidden="true" /> Errores de Accesibilidad
+            <AlertCircle className="size-5" aria-hidden="true" /> {content.errorsAccessibility}
           </h3>
           <div className="space-y-3">
             {data.errors.map((error, i) => (
@@ -37,7 +39,7 @@ export const AnalysisResponse = ({ data }: AnalysisProps) => {
       {data.suggestions.length > 0 && (
         <section>
           <h3 className="flex items-center gap-2 font-bold text-amber-500 mb-3">
-            <Lightbulb className="size-5" aria-hidden="true" /> Sugerencias de Mejora
+            <Lightbulb className="size-5" aria-hidden="true" /> {content.suggestionsAccessibility}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {data.suggestions.map((sug, i) => (
@@ -50,7 +52,7 @@ export const AnalysisResponse = ({ data }: AnalysisProps) => {
                         : 'bg-blue-100 text-blue-700'
                     }`}
                   >
-                    Prioridad {sug.priority}
+                    {content.priority} {sug.priority}
                   </span>
                 </div>
                 <p className="text-sm text-amber-900">{sug.description}</p>
@@ -65,7 +67,7 @@ export const AnalysisResponse = ({ data }: AnalysisProps) => {
         <section className="mt-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="flex items-center gap-2 font-bold text-green-600">
-              <CheckCircle2 className="size-5" aria-hidden="true" /> Código Sugerido
+              <CheckCircle2 className="size-5" aria-hidden="true" /> {content.suggestedCode}
             </h3>
             <button
               onClick={() => handleCopy(data.fixed_code)}
@@ -78,11 +80,11 @@ export const AnalysisResponse = ({ data }: AnalysisProps) => {
             >
               {isCopied ? (
                 <>
-                  <Check className="size-3" /> ¡Copiado!
+                  <Check className="size-3" aria-hidden="true" /> {content.clipboard.copied}
                 </>
               ) : (
                 <>
-                  <Copy className="size-3" /> Copiar código
+                  <Copy className="size-3" aria-hidden="true" /> {content.clipboard.copy}
                 </>
               )}
             </button>
@@ -103,8 +105,7 @@ export const AnalysisResponse = ({ data }: AnalysisProps) => {
 
       {data.errors.length === 0 && data.suggestions.length === 0 && (
         <p className="text-sm text-green-700 bg-green-50 p-3 rounded-lg border border-green-100 shadow">
-          ¡No se encontraron problemas de accesibilidad! El código cumple con las pautas WCAG
-          analizadas.
+          {content.noAccessibilityIssues}
         </p>
       )}
     </li>
