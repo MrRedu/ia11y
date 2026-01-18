@@ -1,21 +1,26 @@
 import type { ReactNode } from 'react';
-import './globals.css';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams } from 'next-intlayer';
-import { getHTMLTextDir, getIntlayer, getMultilingualUrls } from 'intlayer';
-
-import { Geist, Geist_Mono } from 'next/font/google';
+import './globals.css';
+import { getHTMLTextDir, getIntlayer } from 'intlayer';
+import { IBM_Plex_Mono, Lora, Plus_Jakarta_Sans } from 'next/font/google';
 import { Providers } from '@/components/providers';
 import { getLocale, IntlayerServerProvider } from 'next-intlayer/server';
 import { cookies } from 'next/headers';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: '--font-plus-jakarta-sans',
   subsets: ['latin'],
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const loraSerif = Lora({
+  variable: '--font-lora-serif',
+  subsets: ['latin'],
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  variable: '--font-ibm-plex-mono',
+  weight: ['400', '500', '600', '700'],
   subsets: ['latin'],
 });
 
@@ -24,17 +29,14 @@ export const generateMetadata = async ({ params }: LocalPromiseParams): Promise<
 
   const metadata = getIntlayer('metadata', locale);
 
-  const multilingualUrls = getMultilingualUrls('/');
-  const localizedUrl = multilingualUrls[locale as keyof typeof multilingualUrls];
-
   return {
     ...metadata,
-    alternates: {
-      canonical: localizedUrl,
-      languages: { ...multilingualUrls, 'x-default': '/' },
-    },
+    authors: [{ name: 'Eduardo R.', url: 'https://github.com/MrRedu' }],
+    creator: '@MrRedu | Eduardo R.',
+    publisher: 'Eduardo R.',
     openGraph: {
-      url: localizedUrl,
+      ...metadata.openGraph,
+      url: 'https://ia11y.vercel.app',
       images: [
         {
           url: '/og-1920x1080.webp',
@@ -50,6 +52,30 @@ export const generateMetadata = async ({ params }: LocalPromiseParams): Promise<
         },
       ],
     },
+    twitter: {
+      card: 'summary_large_image',
+      images: [
+        {
+          url: '/og-1920x1080.webp',
+          width: 1920,
+          height: 1080,
+          alt: 'ia11y | AI-Powered Web Accessibility Auditor',
+        },
+      ],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      nocache: false,
+      googleBot: {
+        index: true,
+        follow: true,
+        noimageindex: false,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
   };
 };
 
@@ -64,7 +90,9 @@ const RootLayout = async ({
 
   return (
     <html lang={locale} dir={getHTMLTextDir(locale)} suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={`${plusJakartaSans.variable} ${loraSerif.variable} ${ibmPlexMono.variable} antialiased`}
+      >
         <IntlayerServerProvider locale={locale}>
           <Providers locale={locale} isSidebarOpen={isSidebarOpen}>
             {children}

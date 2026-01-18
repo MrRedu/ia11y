@@ -23,7 +23,14 @@ const metadataContent = {
       ],
     }),
     openGraph: {
-      title: 'ia11y',
+      title: t({
+        en: 'ia11y | AI-Powered Web Accessibility Auditor',
+        es: 'ia11y | Auditor de Accesibilidad Web con IA',
+      }),
+      description: t({
+        en: 'Audit, fix, and optimize your website accessibility (WCAG) with AI. Building a web for everyone, one commit at a time.',
+        es: 'Audita, corrige y optimiza la accesibilidad de tu web (WCAG) con IA. Construyendo una web para todos, un commit a la vez.',
+      }),
       siteName: 'ia11y',
       type: 'website',
     },
