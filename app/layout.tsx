@@ -37,17 +37,17 @@ export const generateMetadata = async ({ params }: LocalPromiseParams): Promise<
       url: localizedUrl,
       images: [
         {
-          url: '/og-image.webp',
+          url: '/og-1920x1080.webp',
           width: 1200,
           height: 630,
-          alt: 'ia11y',
+          alt: 'ia11y | AI-Powered Web Accessibility Auditor',
         },
-        // {
-        //   url: '/og-image-600x600.webp', // Versión cuadrada para chats/pequeño
-        //   width: 600,
-        //   height: 600,
-        //   alt: 'ia11y',
-        // },
+        {
+          url: '/og-600x600.webp',
+          width: 600,
+          height: 600,
+          alt: 'ia11y | AI-Powered Web Accessibility Auditor',
+        },
       ],
     },
   };
