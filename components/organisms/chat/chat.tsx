@@ -2,7 +2,7 @@
 
 import { cn } from '@/lib/utils';
 
-import { Cpu, User } from 'lucide-react';
+import { Cpu } from 'lucide-react';
 
 import { Typography } from '@/components/ui/typography';
 import { Composer } from '@/components/ui/composer';
@@ -22,7 +22,7 @@ export const Chat = () => {
   return (
     <div
       className={cn(
-        'relative mx-auto max-w-2xl xl:max-w-3xl 2xl:max-w-4xl 3xl:max-w-5xl h-full px-4',
+        'relative mx-auto max-w-2xl xl:max-w-3xl 2xl:max-w-4xl min-[1920px]:max-w-5xl min-[2524px]:max-w-6xl min-[2944px]:max-w-7xl h-full px-4',
         messages.length > 0 && 'pt-10'
       )}
     >

@@ -34,7 +34,9 @@ export const InfoDialog = () => {
         </section>
 
         <section className="pt-2 border-t text-center flex flex-col gap-2">
-          <Typography variant="muted">{content.openSourceText}</Typography>
+          <Typography variant="muted" className="text-balance">
+            {content.openSourceText}
+          </Typography>
           <Link
             href="https://github.com/MrRedu/ia11y"
             target="_blank"

@@ -16,10 +16,10 @@ export const Header = () => {
   }, []);
 
   return (
-    <header className="flex items-center justify-between max-h-[52px] py-2 px-4 border-b">
+    <header className="sticky top-0 bg-background z-50 w-full flex items-center justify-between max-h-[52px] py-2 px-4 border-b">
       <div className="flex items-center justify-between w-full">
         <SidebarTrigger className="block md:hidden" />
-        <h1 className="hidden  font-mono font-bold md:flex items-center gap-2">
+        <h1 className="font-mono font-bold flex items-center gap-2 mr-auto">
           <Ia11yIcon className="size-6 text-primary" aria-hidden="true" />
           ia11y
         </h1>
