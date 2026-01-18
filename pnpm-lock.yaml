@@ -81,6 +81,9 @@ importers:
         specifier: ^4.3.5
         version: 4.3.5
     devDependencies:
+      '@intlayer/swc':
+        specifier: ^7.5.14
+        version: 7.5.14
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.1.18
@@ -659,6 +662,10 @@ packages:
 
   '@intlayer/remote-dictionaries-entry@7.5.14':
     resolution: {integrity: sha512-ClEVvtXNuIQ3GQMaQkUoKcl6hLqLAlPT6DRF01kJd1yPuR15oYs1pX6f7MTtZgODrqxNX+k6VYzaBoz1+e23Jg==}
+    engines: {node: '>=14.18'}
+
+  '@intlayer/swc@7.5.14':
+    resolution: {integrity: sha512-sAA8mf2/GTfj9SECrbkvHK3+/jKFjwHeB4/RRGf03CCOOS10b2Zt197Rv5sSGMypCxgH2qH29tVF6Fk/7Kq+lg==}
     engines: {node: '>=14.18'}
 
   '@intlayer/types@7.5.14':
@@ -4553,6 +4560,8 @@ snapshots:
     transitivePeerDependencies:
       - intlayer
       - react
+
+  '@intlayer/swc@7.5.14': {}
 
   '@intlayer/types@7.5.14': {}
 
